@@ -7,9 +7,9 @@
 // 6. To access the states of store in component, import the useSelector hook
 
 import './App.css';
-// useSelector hook, useDispatch hook
+// Import useSelector hook, useDispatch hook
 import { useSelector, useDispatch } from 'react-redux';
-// Actions
+// Import action from slice
 import { addReservation } from './features/reservationSlice';
 
 import { RootState } from './app/store';
@@ -25,7 +25,7 @@ function App() {
     (state: RootState) => state.reservation.value
   );
 
-  // To call method from the reducer to dispatch the action
+  // To call method to dispatch action
   const dispatch = useDispatch();
   const handleAddReservation = () => {
     if (!reservationNameInput) return;
@@ -40,8 +40,8 @@ function App() {
           <div>
             <h5 className="reservation-header">Reservations</h5>
             <div className="reservation-cards-container">
-              {reservations.map((name) => {
-                return <ReservationCard name={name} />;
+              {reservations.map((name, index) => {
+                return <ReservationCard name={name} index={index} />;
               })}
             </div>
           </div>
