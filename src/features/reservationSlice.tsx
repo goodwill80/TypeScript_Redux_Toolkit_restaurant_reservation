@@ -11,8 +11,9 @@ const initialState: ReservationType = {
 };
 
 // Create slice - comprising of name, initial state and all the reducer methods
+// - (ignore immutability as redux will settle)
 export const reservationSlice = createSlice({
-  name: 'reservation',
+  name: 'reservations',
   initialState,
   reducers: {
     // Method 1
@@ -37,4 +38,4 @@ export const { addReservation, removeReservation } = reservationSlice.actions;
 
 // Export as default to be passed into store
 // once the reservation is initialised via createSlice - a reducer obj will be stored inside. This needs to be exported.
-export default reservationSlice.reducer; // to be used in the configure store
+export default reservationSlice.reducer; // import as "reservationReducer" to be used in the configure store

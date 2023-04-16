@@ -5,27 +5,31 @@
 // 4. Set up features folder (as per redux documentation) and start creating  respective slices as tsx files
 // 5. From the slice files - export reducer and pass in store, export action methods to be used in components
 // 6. To access the states of store in component, import the useSelector hook
-
+import { useState } from 'react';
 import './App.css';
 // Import useSelector hook, useDispatch hook
 import { useSelector, useDispatch } from 'react-redux';
 // Import action from slice
 import { addReservation } from './features/reservationSlice';
-
+// Import type of state
 import { RootState } from './app/store';
+// Components
 import ReservationCard from './components/ReservationCard';
-import { useState } from 'react';
+import CustomerCard from './components/CustomerCard';
 
 function App() {
   // Form state
   const [reservationNameInput, setReservationNameInput] = useState<string>('');
 
-  // To retrieve state named reservation based on what u names in configure store
+  // To retrieve Reservation State in configure store
   const reservations = useSelector(
     (state: RootState) => state.reservation.value
   );
 
-  // To call method to dispatch action
+  // To retrieve Customer State in configure store
+  const customers = useSelector((state: RootState) => state.customer.value);
+
+  // To call method from slice to dispatch action
   const dispatch = useDispatch();
   const handleAddReservation = () => {
     if (!reservationNameInput) return;
@@ -55,16 +59,15 @@ function App() {
           </div>
         </div>
         <div className="customer-food-container">
-          <div className="customer-food-card-container">
-            <p>Oliver</p>
-            <div className="customer-foods-container">
-              <div className="customer-food"></div>
-              <div className="customer-food-input-container">
-                <input type="text" />
-                <button>Add</button>
-              </div>
-            </div>
-          </div>
+          {customers.map((customer, index) => {
+            return (
+              <CustomerCard
+                name={customer.name}
+                id={customer.id}
+                food={customer.food}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
